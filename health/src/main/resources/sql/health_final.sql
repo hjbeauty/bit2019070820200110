@@ -1,3 +1,88 @@
+-- [ healthBoard ]
+
+drop table healthBoard CASCADE CONSTRAINTS;
+
+
+CREATE TABLE healthBoard (
+postno  NUMBER(5) PRIMARY KEY,      
+groupno NUMBER(5) ,                              
+grouporder NUMBER(2),                             
+depth NUMBER(2),                                  
+title VARCHAR2(100),
+writer VARCHAR2 (100),
+content VARCHAR2 (3000),
+reg_date DATE,
+count NUMBER(3) DEFAULT 0
+
+);
+
+drop sequence postseq;
+
+
+ create sequence postseq
+ MINVALUE 0
+ START WITH 1
+ INCREMENT BY 1
+ MAXVALUE 100;
+
+
+-- [ FileVO ]
+DROP TABLE files;
+
+create table files(
+fno NUMBER(3) PRIMARY KEY,
+postno NUMBER(5) REFERENCES healthBoard(postno) ON DELETE CASCADE,
+filename VARCHAR2(200),
+fileOriName VARCHAR2(300),
+fileurl VARCHAR2(500)
+);
+
+DROP SEQUENCE fileseq;
+
+ create sequence fileseq
+ MINVALUE 0
+ START WITH 1
+ INCREMENT BY 1
+ MAXVALUE 100;
+
+commit;
+
+
+-- [ HealthComment ]
+
+drop table healthComment;
+
+CREATE TABLE healthComment(
+  commentno NUMBER(3) PRIMARY KEY,
+  postno NUMBER(3),
+  content VARCHAR2 (1000),
+  writer VARCHAR2 (20),
+  reg_date DATE
+);
+
+
+drop sequence commentseq;
+
+ create sequence commentseq
+ MINVALUE 0
+ START WITH 1
+ INCREMENT BY 1
+ MAXVALUE 100;
+ 
+
+--[USERS]
+
+DROP TABLE users;
+
+CREATE TABLE users(
+
+    id VARCHAR2(50) PRIMARY KEY,
+    password VARCHAR(1000),
+    name VARCHAR(50),
+    role VARCHAR(20) DEFAULT 'user' check(role in ('user', 'admin'))
+    );
+    
+    
  --글 생성
 --1
 INSERT INTO healthBoard(postno, groupno, grouporder, depth, title, writer, content, reg_date) 
@@ -93,6 +178,56 @@ INSERT INTO users (id, password, name, role) values('camila', 1234, 'Camila Kim'
 
 
 
+-- [ QNA Board ]
+
+DROP TABLE QNABOARD;
+
+  CREATE TABLE QNABOARD 
+   (	
+    POSTNO NUMBER(5,0) primary key, 
+	GROUPNO NUMBER(5,0) , 
+	GROUPORDER NUMBER(2,0) , 
+	DEPTH NUMBER(2,0) , 
+	TITLE VARCHAR2(200) , 
+	WRITER VARCHAR2(20) , 
+	CONTENT VARCHAR2(3000) , 
+	IMG VARCHAR2(200)
+    );
+    
+
+-- [ MEAL Planner ]
+
+DROP TABLE mealplanner CASCADE CONSTRAINTS;
+DROP TABLE oriental;
+DROP TABLE western;
+DROP SEQUENCE foodidseq;
+
+create table mealplanner(
+dayorder varchar2(30),
+foodid		number(3) PRIMARY KEY,
+foodname	VARCHAR2(100),
+image	VARCHAR2(200),
+image_menu	VARCHAR2(3000),
+day		VARCHAR2(30),
+week		NUMBER(2),
+foodtype    VARCHAR2(30)
+);
+
+create sequence foodidseq
+MINVALUE 0
+START WITH 1
+INCREMENT BY 1
+MAXVALUE 200;
+
+CREATE TABLE oriental(
+foodid			number(3),
+foodname		VARCHAR2(100),
+image			VARCHAR2(200),
+image_menu		VARCHAR2(3000),
+foodtype			VARCHAR2(30),
+constraint FK_oriental FOREIGN KEY (foodid) REFERENCES mealplanner(foodid) ON DELETE CASCADE
+);
+
 insert into mealplanner (foodname, foodid, image, image_menu, day, foodtype, dayorder) values('김치참치필라프',(foodidseq.nextval),'칼로리 546kcal | 지방 38.9g | 단백질 35.7g | 순탄수 17.0g | 식이섬유 5.9g','/img/img_kimchipilaf.jpg','WED','O',3);
 insert into mealplanner (foodname, foodid, image, image_menu, day, foodtype, dayorder) values('나가사끼부대찌개',(foodidseq.nextval),'칼로리 402kcal | 지방 23.4g | 단백질 19.9g | 순탄수 19.8g | 식이섬유 3.7g','/img/img_nagasaki.jpg','MON','O',1);
 insert into mealplanner (foodname, foodid, image, image_menu, day, foodtype, dayorder) values('아보카도명란비빔밥',(foodidseq.nextval),'칼로리 744kcal | 지방 67.4g | 단백질 23.0g | 순탄수 13.0g | 식이섬유 14.9g','/img/img_avocadobibim.jpg','THU','O',4);
@@ -113,6 +248,15 @@ insert into mealplanner (foodname, foodid, image, image_menu, day, foodtype, day
 insert into mealplanner (foodname, foodid, image, image_menu, day, foodtype, dayorder) values('타이누들샐러드',(foodidseq.nextval),'칼로리 207kcal | 지방 3.2g | 단백질 14.4g | 순탄수 0.1g | 식이섬유 3.2g','/img/img_thainoodlesalad.jpg','MON','O',1);
 insert into mealplanner (foodname, foodid, image, image_menu, day, foodtype, dayorder) values('사천식닭조림',(foodidseq.nextval),'칼로리 641kcal | 지방 5.1g | 단백질 46.4g | 순탄수 13.0g | 식이섬유 12.6g','/img/img_spicychicken.jpg','SAT','O',6);
 insert into mealplanner (foodname, foodid, image, image_menu, day, foodtype, dayorder) values('하얀닭개장',(foodidseq.nextval),'칼로리 400kcal | 지방 1.5g | 단백질 37.1g | 순탄수 3.4g | 식이섬유 10.7g','/img/img_whitechickensoup.jpg','WED','O',3);
+
+CREATE TABLE western(
+foodid			number(3),
+foodname		VARCHAR2(100),
+image			VARCHAR2(200),
+image_menu		VARCHAR2(3000),
+foodtype			VARCHAR2(30),
+constraint FK_western FOREIGN KEY (foodid) REFERENCES mealplanner(foodid) ON DELETE CASCADE
+);
 
 insert into MEALPLANNER (foodname, foodid, image, image_menu, day, foodtype, dayorder) values('바베큐소스목살구이',(foodidseq.nextval),'칼로리 584kcal | 지방 37.5g | 단백질 43.4g | 순탄수 13.2g | 식이섬유 3.7g','/img/img_barbecuesteak.jpg','THU','W',4);
 insert into MEALPLANNER (foodname, foodid, image, image_menu, day, foodtype, dayorder) values('니수아즈샐러드',(foodidseq.nextval),'칼로리 738kcal | 지방 63.9g | 단백질 29.4g | 순탄수 10.3g | 식이섬유 12.2g','/img/img_nicesalad.jpg','THU','W',4);
@@ -137,6 +281,45 @@ insert into MEALPLANNER (foodname, foodid, image, image_menu, day, foodtype, day
 insert into MEALPLANNER (foodname, foodid, image, image_menu, day, foodtype, dayorder) values('타코샐러드',(foodidseq.nextval),'칼로리 737kcal | 지방 60.9g | 단백질 28.4g | 순탄수 12.6g | 식이섬유 14.5g','/img/img_tacosalad.jpg','SUN','W',0);
 insert into MEALPLANNER (foodname, foodid, image, image_menu, day, foodtype, dayorder) values('아보카도불고기샐러드',(foodidseq.nextval),'칼로리 853kcal | 지방 76.9g | 단백질 24.8g | 순탄수 12.9g | 식이섬유 13.8g','/img/img_avocadosteak.jpg','FRI','W',5);
 
+
+-- [ Freeboard ]
+
+drop sequence seq_board;
+
+create sequence seq_board
+    start with 1
+    increment by 1
+    maxvalue 10000;
+
+--민석 table
+    drop table freeboard;
+    
+    CREATE TABLE freeboard (
+       boardnum number(4),
+       title varchar2(100),
+       boardtime date default sysdate,
+       txt varchar2(2000),
+       writer varchar2(20),     
+      constraint pk_boardnum primary key(boardnum)
+    );
+
+
+-- [ ThumbnailBoard ] 
+
+drop table thumbnailBoard;
+
+
+
+    create table thumbnailBoard
+    (
+    title varchar2(200),
+    uploadDate date,
+    boardContent varchar2(1000),
+    articleNumber number(10),
+    imgsrc varchar2(200),
+    primary key(articleNumber)
+    );
+    
 insert into thumbnailBoard(title, uploadDate, boardContent, articleNumber, imgsrc) 
 values('웨이트 트레이닝 도중에 하지 말아야 할 행동', sysdate, '운동 동작 중에 말을 한다', (select nvl(max(articleNumber),0)+1 from thumbnailBoard), ‘1.jpg');
 
@@ -148,3 +331,7 @@ values('벤치프레스’, sysdate, '인클라인 벤치프레스와 디클라인 벤치프레스가 있다
 
 insert into thumbnailBoard(title, uploadDate, boardContent, articleNumber, imgsrc) 
 values(‘스쿼트’, sysdate, '스쿼트는 성별 관련없이 모두 스쿼트 운동효과를 톡톡히 볼 수 있다. ', (select nvl(max(articleNumber),0)+1 from thumbnailBoard), ‘4.png');
+
+
+
+
