@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="httpL//www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<form role="form" th:object="${board}" th:action="@{/freeboardinsert}" action="#" method="post">
+
+   <div style="text-align: center;">글 등록 </div>
+   <table id="boardTable" border="1" width="1000" height="400" align="center">
+		
+		
+		<tr align="center">
+		          <th>title</th>
+		          <td><input type="text" th:field="*{title}" name="title" id="title"
+			       autofocus="autofocus" placeholder="title" required="required"></td>
+		</tr>
+		
+		<tr align="center">
+		          <th>text</th>
+		          <td><input type="text" th:field="*{txt}" name="txt"
+			           id="txt" autofocus="autofocus" placeholder="text"
+			           required="required"></td>
+		</tr>
+		
+		<tr align="center">
+		          <th>time</th>
+		          <td><input type="date" th:field="*{boardtime}" name="boardtime" id="boardtime"
+			          autofocus="autofocus" placeholder="boardtime" required="boardtime"></td>
+		</tr>	
+			
+		<tr>	
+			<td align="right" colspan="8"><input type="submit" th:value="글쓰기"></td>
+			<a th:href="@{/freemain}">Home</a>
+		</tr>	
+		
+	</table>		
+	</form>
+</body>
+</html>

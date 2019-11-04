@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTDMapper3.0//EN" 
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.service.ThumbnailBoardMapper">
+
+	<!--  전체 목록 출력  -->
+	<select id="getBoardList" resultType="ThumbnailBoard">
+		select * from thumbnailBoard order by articleNumber desc
+	</select>
+	
+	<!--  전체 목록 개수 출력  -->
+	<select id="boardCount" parameterType="ThumbnailBoard" resultType="int">
+		select count(*) from thumbnailBoard
+	</select>
+	
+	<!--  글번호 해당하는 글 출력  -->
+	<select id="getPost" resultType="ThumbnailBoard">
+		select * from thumbnailBoard where articleNumber = #{articleNumber}
+	</select>
+
+	<!-- 게시글 작성 -->
+	<insert id="writeBoard" parameterType="ThumbnailBoard">
+		insert into thumbnailBoard(title, uploadDate, boardContent, articleNumber, imgsrc)
+		values(#{title}, sysdate, #{boardContent}, (select nvl(max(articleNumber),0)+1 from thumbnailBoard), #{imgsrc})
+	</insert>
+	
+	<!--  글 수정  -->
+	<update id="update" parameterType="ThumbnailBoard">
+		update thumbnailBoard set title=#{title}, boardContent=#{boardContent} where articleNumber=#{articleNumber}
+	</update>
+	
+	<!--  글 삭제 -->
+	<delete id="delete" parameterType="int">
+		delete from thumbnailBoard where articleNumber = #{articleNumber}
+	</delete>
+</mapper>

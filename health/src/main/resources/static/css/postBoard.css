@@ -1,0 +1,19 @@
+@charset "UTF-8";
+
+#titlediv{
+	text-align: center;
+}
+#title{
+	font-size: 30px;
+}
+#imgsrcdiv, #datediv, #boardContentdiv{
+	text-align: center;
+	align-content: center;
+} 
+#btndiv{
+	text-align: center;
+}
+#board_img{
+	width: 400px;
+	height: 300px;
+}

@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<title>Board List</title>
+
+<link type="text/css" rel="stylesheet" th:href="@{/css/health.css}" />
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<!-- BootStrap -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  
+
+<script src='https://kit.fontawesome.com/a076d05399.js'></script>
+<style type="text/css">
+
+#main{
+	margin-top: 100px;
+
+}
+
+#total{
+	float: right;
+	color: #008080;
+	font-weight: bold;
+	margin-right: 250px;
+}
+
+
+#title{
+
+	text-align: center;
+	font-size: 25pt;
+
+}
+
+#link{
+
+	margin-bottom: 20px;
+}
+
+#showList{
+
+	margin-left: 30px;
+	color: #008080;
+	font-weight: bold;
+}
+
+#bookmark{
+  position: absolute;
+  top: 100px;
+  right: 50px;
+  width: 100px;
+  height: 50px;
+  text-align: center;
+  color: #008080;
+  font-weight: bold;
+}
+
+#bookmark_text{
+	text-align: center;
+	font-size: 16pt;
+}
+
+
+#search_box{
+	padding-top: 30px;
+	margin: 0 auto;
+	width: 70%;
+	text-align: center;
+
+}
+
+#search_input{
+	margin: 0 auto;
+	width: 60%;
+
+}
+
+
+#paging{
+	width: 60%;
+	margin: 0 auto;
+	margin-top: 30px;
+}
+
+#pageCenter{
+	width: 100%;
+	margin: 0 auto;
+	text-align: center;
+	display : inline-block;
+}
+
+#pageCenter a{
+
+	margin-left: 5px;
+	margin-right: 5px;
+
+}
+
+
+#board_table{
+	margin: 0 auto;
+	border: 1px solid gray;
+	width: 70%;
+
+}
+
+th, td{
+	
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-top: 3px;
+	padding-bottom: 3px;
+
+}
+
+
+
+a{
+	text-decoration: none;
+}
+
+
+
+</style>
+
+
+</head>
+<body>
+
+<div id="header">
+ <th:block th:replace="fragments/header2"></th:block>
+
+</div>
+
+
+
+	<div id="main">
+		<div id="list">
+			<p id="title" >건강에 대한 모든 것을 물어보세요!</p>
+			
+			<div id="link">
+			<span id="bookmark" class="links" th:if="${login != null}">
+				<a th:href="@{/boardInsert}" id="bookmark_text">글쓰기</a>
+			</span>
+			<span class="links" id="showList">
+				<a href="/boardList/1" > 전체 목록 보기</a>
+			</span>
+			
+			<span id="total" class="text-warning">
+				총 게시물 수 : [[${count}]]
+			
+			</span>
+			
+			</div>
+			
+			<div class="container">
+
+			<table id="board_table" class="table table-hover">
+				<tr>
+
+					<th>글 번호</th>
+					<th>제목</th>
+					<th>작성자</th>
+					<th>작성일</th>
+					<th>조회수</th>
+
+				</tr>
+
+				<tr th:each="data : ${boardList}">
+					<td th:if="${data.postNo != 0}">
+					 	<a href="/boardData/" th:attrappend="href= ${data.postNo}"> [[${data.postNo}]]</a></td>
+					 	
+					 	
+					<td th:if="${data.postNo != 0}">
+					 	<a href="/boardData/" th:attrappend="href= ${data.postNo}"> 
+					 	
+					 	<span th:if="${data.depth > 0}" class="material-icons">
+					 	<span th:switch="${data.depth}"> 
+					 		<span th:case="1">&nbsp;</span>
+					 		<span th:case="2">&nbsp;&nbsp;</span>
+					 		<span th:case="3">&nbsp;&nbsp;&nbsp;</span>
+					 		<span th:case="4">&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					 		<span th:case="5">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					 		<span th:case="6">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					 		
+					 	</span>
+					 	
+					 		&#xe5da; RE : 
+					 		[[${data.title}]]
+					 	</span>
+					 	<span th:unless="${data.depth > 0}">
+					 	[[${data.title}]]
+					 	</span>
+					 	</a></td>
+				
+					<td th:if="${data.postNo != 0}">
+						 <a href="/boardData/" th:attrappend="href= ${data.postNo}">[[${data.writer}]]</a></td>
+					
+					<td th:if="${data.postNo != 0}">
+						<a href="/boardData/" th:attrappend="href= ${data.postNo}"> [[${#temporals.format(data.reg_date, 'MM-dd-yyyy')}]]</a>
+					</td>
+					
+					<td th:if="${data.postNo != 0}">
+						<a href="/boardData/" th:attrappend="href= ${data.postNo}"> [[${data.count}]]</a>
+					</td>
+					
+				</tr>
+			</table>
+			
+			</div>
+			
+		<div id="paging">
+			<div id="pageCenter" ></div>
+		</div>
+			
+			
+			
+		<form role="form"  th:action="@{/search}">
+		 <div id="search_box">
+			
+			<select name="condition" th:value="*{condition}">
+				<option value="title">제목</option>
+				<option value="writer">작성자</option>
+			</select>
+			<input type="text" name="keyword" id="search_input" th:value="*{keyword}" />
+			<input type="submit" value="검색"/>
+		</div>
+		</form>	
+	
+		
+		</div>
+		
+	</div>
+	
+	
+	<!-- BootStrap -->
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+
+<script type="text/javascript">
+	
+$(function () {
+	
+	$('.table a').attr({
+		"class" : "text-dark"
+	});
+	
+	
+	$("bookmark_text").attr({
+		"class" : "text-primary"
+	});
+	
+	
+} );
+
+</script>
+
+<th:block th:replace="fragments/pagingScript"></th:block>
+
+</body>
+</html>

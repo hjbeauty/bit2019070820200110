@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link type="text/css" rel="stylesheet" th:href="@{/css/health.css}" />
+
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<title></title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<style>
+a{
+	color:#008080;
+}
+#main{
+	margin-top: 200px;
+}
+
+#links {
+	float: right;
+}
+
+.img-table {
+	text-align: center;
+}
+
+img {
+	width: 400px;
+	height: 200px;
+}
+
+</style>
+</head>
+<body>
+
+	<div id="header">
+		<th:block th:replace="fragments/header"></th:block>
+	</div>
+
+	<div id="main">
+
+		<div id="post" th:object="${board}">
+			<div id=titlediv class="container">
+				<table class="table">
+					<tbody>
+						<tr>
+							<td><span id="title"><strong
+									th:text="|제목 : *{title}|"></strong></span> 
+								<span id="links"> 
+									<a id="golist" th:href="@{QnAboard}">목록으로</a> 
+									<span th:if="${login != null}"> 
+										<a id="reply" th:href="@{goReply.do(type=reply,postNo=*{postNo})}">답글</a>
+									</span>
+									<span th:if="${login == board.writer}"> 
+										<a id="modify" th:href="@{goModify.do(type=modify,postNo=*{postNo})}">수정</a>
+										<a id="delete" th:href="@{delete.do(postNo=*{postNo})}">삭제</a>
+									</span>
+								</span></td>
+						</tr>
+						<tr th:if="${board.img !=null}">
+							<td class="img-table"><img alt="없음" th:src=@{${board.img}}>
+							<td>
+						</tr>
+						<tr>
+							<td><p th:text="*{content}"></p>
+							<td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

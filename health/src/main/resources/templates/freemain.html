@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link type="text/css" rel="stylesheet" th:href="@{/css/health.css}" />
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">	
+
+<style type="text/css">
+
+#header{
+
+	margin-bottom: 100px;
+
+}
+</style>
+
+
+</head>
+<body>
+  	<div id="header">
+ 		<th:block th:replace="fragments/header"></th:block>
+	</div>
+  
+    <div style="text-align: center;">자유게시판</div>
+    <table id="boardTable"  border="1" width="1000" height="500" align="center">
+      <thead align="center">
+      <tr>
+          
+          <td >no</td>
+		   <td>writer</td>
+		   <td>title</td>
+		   <td>text</td>
+		   <td>time</td>
+      </tr>
+    </thead>
+    
+    
+    
+    
+    <tbody align="center">
+        <tr th:each="board : ${list}">
+         <td th:text="${board.boardnum}">no</td>
+         <td th:text="${board.writer}">writer</td>
+         <td><a th:href="'freecontent?boardnum='+${board.boardnum}" th:text="${board.title}"></a></td>
+         <td th:text="${board.txt}">board</td>
+         <td th:text="${board.boardtime}">time</td>
+        </tr>
+    </tbody>
+    
+    <tfoot align="center">
+       <tr th:if="${login != null}">
+       <td colspan="7"><a th:href="@{/freeinsert}">글쓰기</a></td>
+       </tr>
+    </tfoot>      
+    
+</table>
+</body>
+</html>

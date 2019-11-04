@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Board Update</title>
+
+<!-- BootStrap -->
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script> -->
+
+</head>
+<body>
+
+	<div id="main">
+
+		<p id="p_title">글 수정하기</p>
+	<div th:each="data : ${boardData}">
+		<form role="form" th:object="${healthBoard}" action="/update/" th:attrappend="action= ${data.postNo}">
+
+		
+				<div>
+					<label for="title"> 제목 </label> 
+					<textarea id="title" name="title" rows="1" style="width: 100%; border: 1;">[[${data.title}]] </textarea>
+				</div>
+
+				<div>
+					<label for="content"> 내용 </label>
+					<textarea id="content" name="content" rows="30" style="width: 100%; border: 1;">[[${data.content}]]</textarea>
+				</div>
+		
+
+			<button type="submit">수정</button>
+
+
+
+		</form>
+	</div>
+
+	</div>
+
+
+</body>
+</html>

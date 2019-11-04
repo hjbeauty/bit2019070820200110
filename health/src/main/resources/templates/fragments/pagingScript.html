@@ -1,0 +1,59 @@
+<meta charset="UTF-8">
+<script th:inline="javascript">
+
+
+
+/*<![CDATA[*/ 
+var pageSize = /*[[${listSize}]]*/;
+	/*]]>*/	
+
+console.log(pageSize);
+
+if(pageSize != 0) {
+	
+	let left = document.createElement('a');
+	
+	left.setAttribute("class", "fas fa-caret-left");
+	left.setAttribute("id", "left");
+	left.setAttribute("href" , "../boardList/1");
+	
+	document.querySelector('#pageCenter').appendChild(left);
+	
+	$('#left').html("");
+}
+	
+	
+for(var i = 1; i<=pageSize; i++){
+	
+	
+	
+	let pageList = document.createElement('a');
+	
+	
+	pageList.setAttribute("class" , "pageList");
+	pageList.setAttribute("id" , "pageList"+i);
+	pageList.setAttribute("value", i)
+	pageList.setAttribute("href" , "../boardList/"+i);
+
+	
+	document.querySelector('#pageCenter').appendChild(pageList);
+	
+	$('#pageList'+i).html(i);
+	
+}  
+
+if(pageSize != 0) {
+	
+	let right = document.createElement('a');
+	
+	right.setAttribute("class", "fas fa-caret-right");
+	right.setAttribute("id", "right");
+	right.setAttribute("href" , "../boardList/" + pageSize);
+	
+	document.querySelector('#pageCenter').appendChild(right);
+	
+	$('#right').html("");
+}
+
+
+</script>

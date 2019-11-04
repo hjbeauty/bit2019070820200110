@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
+<head>
+<link th:href="@{/css/main.css}" rel="stylesheet" />
+<meta charset="UTF-8">
+<title>main here</title>
+</head>
+<body>
+<div id="title">Your Meal-Planner!</div>
+<div id="subtitle">
+	<span style><i class = "icon-left">before</i></span>
+		WEEK PAGING
+	<span style><i class = "icon-right">after</i></span>
+	</div>
+	
+		<table id="MEALPLANNER_1" border="1" style="width: 600px;">
+			<thead>
+				<tr>
+					<th>Sun</th>
+					<th>Mon</th>
+					<th>Tue</th>
+					<th>Wed</th>
+					<th>Thu</th>
+					<th>Fri</th>
+					<th>Sat</th>
+					<th>Select</th>
+				</tr>
+					<th:block th:replace="meal/breakfast :: breakfast"></th:block>
+					<th:block th:replace="meal/lunch :: lunch"></th:block>
+					<th:block th:replace="meal/dinner :: dinner"></th:block>
+			</thead>
+		</table>
+	</div>
+
+
+</body>
+</html>

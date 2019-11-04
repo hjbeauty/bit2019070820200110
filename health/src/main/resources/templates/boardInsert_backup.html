@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+
+<title>Board Insert</title>
+<!-- BootStrap -->
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+ -->
+<style type="text/css">
+
+#insert{
+
+	width: 80%;
+	margin: 0 auto;
+}
+
+
+#p_title{
+
+	text-align: center;
+	font-size: 25pt;
+
+}
+
+#title_text{
+	letter-spacing: 5px;
+
+}
+
+
+#btn{
+	float: right;
+
+}
+
+#link{
+	float: left;
+}
+
+a{
+	text-decoration: none;
+}
+
+</style>
+
+
+</head>
+<body>
+
+<div id="main">
+	<div id="link" role="group">
+				
+			<a href="/boardList/1" id="bookmark_list">목록</a>
+	
+	    </div>
+
+<form role="form" th:object="${healthBoard}" th:action="insert" method="post" enctype="multipart/form-data" >
+
+<p id="p_title">글 쓰기</p>
+
+
+<div id="insert">
+	<!-- writer : <input type="text" class="inputs" id="writer" name="writer" th:field="*{writer}" 
+          placeholder="writer" required="required" /> <br/> -->
+	<div>
+		<label for="title" id="title_text"> Title </label>
+		<textarea id="title" name="title" th:field="*{title}" rows="1" style="width: 90%; border: 1;"
+				  required="required"></textarea>
+	</div>
+    <div>
+		<label for="content" id="content_text"> Content</label>
+		<textarea id="content" name="content" th:field="*{content}" rows="10" style="width: 90%; border: 1;"
+				  required="required"></textarea>
+	</div>  
+    image : <input type="file" name="files"> <br/> 
+          
+      <div id="btn">
+		<input type="submit" class="btns" id="submit" value="Submit">
+		<input type="reset" class="btns" id="reset" value="Reset">
+	</div>
+	</div>
+</form>
+	
+
+
+
+</div>
+
+</body>
+</html>

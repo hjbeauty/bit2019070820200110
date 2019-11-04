@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTDMapper3.0//EN" 
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.service.BoardMapper">
+	
+	<!-- paging final -->
+	<select id="getBoardList" resultType="HealthBoard">
+	
+		SELECT*FROM healthBoard ORDER BY groupno DESC, grouporder ASC
+	
+	</select> 
+
+	
+	<!-- 전체 글 수 -->
+	<select id="totalCnt" resultType="int">
+		SELECT count(*) FROM healthBoard
+	
+	</select>
+
+	<!-- Board 상세 data 출력 -->
+	<select id="boardView" parameterType="int" resultType="HealthBoard">
+
+		SELECT*FROM healthBoard where postno = #{postNo}
+	
+	</select>
+	
+	<!-- 조회수 -->
+	<update id="viewCount" parameterType="int">
+		UPDATE healthBoard set count = count +1 where postno = #{postNo}	
+	</update>
+	
+
+	<!-- File 출력 -->
+	<select id="fileView" parameterType="int" resultType="FileVO">
+		SELECT*FROM files WHERE postno = #{postNo}
+	</select>
+	
+	<!-- File 다운로드용 출력 -->
+	<select id="fileDownView" parameterType="int" resultType="FileVO">
+		select*from files where fno = #{fno};
+	</select>
+	
+	
+	<!-- 글 Search by title or writer -->
+	<select id="searchView" parameterType="String" resultType="HealthBoard">
+		
+		SELECT*FROM healthBoard where ${condition} like '%'||#{keyword}||'%' ORDER BY groupno DESC, grouporder ASC	
+	
+	</select>
+	
+
+	<!-- 글 작성  -->
+	<insert id="insertBoard" parameterType="com.example.demo.bean.HealthBoard">
+		
+		<selectKey keyProperty="postNo" resultType="int" order="BEFORE">
+		 
+		 SELECT postseq.nextval FROM DUAL
+		
+		</selectKey>  
+	
+		INSERT INTO healthBoard(postno, groupno, grouporder, depth, title, writer, content, reg_date) 
+		VALUES ( #{postNo}, (select nvl(max(groupno),0)+1 from healthBoard), 0, 0, #{title}, #{writer}, #{content}, SYSDATE)
+	</insert>
+	
+	
+	<insert id="insertFile" parameterType="FileVO" >
+	
+		INSERT INTO files(fno, postno, filename, fileOriName, fileurl)
+		VALUES(fileseq.nextval, #{postNo}, #{fileName}, #{fileOriName}, #{fileUrl})
+	
+	</insert> 
+	
+<!-- 	<insert id="insertFile" parameterType="FileVO" >
+	
+		INSERT INTO files(fno, postno, filename, fileOriName, fileurl)
+		VALUES(fileseq.nextval, (select nvl(max(postNo), 0)from healthBoard ), #{fileName}, #{fileOriName}, #{fileUrl})
+	
+	</insert> -->
+	
+	
+	
+	<!-- 삭제를 위한 것들 -->
+	<!-- 삭제할 글에 답글이 있는지 확인 -->
+	<select id="replyCheck" resultType="HealthBoard" parameterType="int">
+		select* from healthboard where groupno = #{groupNo} AND grouporder = #{groupOrder} +1 
+	</select>
+	
+	<!-- 답글이 있으면 원글 UPDATE -->
+	<update id="replyRemain" parameterType="int">
+	
+		update healthBoard set title = '[ 삭제된 글입니다 ]', writer = null, reg_date = null, count = null,
+		                       content = null where postno= #{postNo}
+	
+	</update>
+	
+	<!-- 글 삭제 -->
+	<delete id="deleteBoard" parameterType="int">
+	
+		DELETE FROM healthBoard WHERE postno = #{postNo}
+	
+	</delete>
+	
+	
+	<!-- 글 Update -->
+	<update id="updateBoard" parameterType="HealthBoard">
+		UPDATE healthBoard SET
+		<if test="title != null">
+			TITLE = #{title}
+		</if>
+		<if test="title !=null and content != null">, </if>
+		<if test="content != null">
+		 	CONTENT = #{content}
+		</if>
+		
+		WHERE postNo = #{postNo}
+		
+	</update>	
+	
+	<!-- 답글 작성 -->
+	
+	<update id="replyUpdate" parameterType="com.example.demo.bean.HealthBoard">
+	
+		UPDATE healthBoard set grouporder = grouporder + 1, depth = depth +1 WHERE groupno = #{groupNo} AND grouporder > 0
+	
+	</update>
+	
+	
+	
+	<insert id="insertReply" parameterType="com.example.demo.bean.HealthBoard">
+	
+		INSERT INTO healthBoard(postno, groupno, grouporder, depth, title, writer, content, reg_date) 
+		VALUES ( postseq.nextval, #{groupNo}, 1, 1, #{title}, #{writer}, #{content}, SYSDATE)
+	</insert>
+	
+	
+	
+	
+
+</mapper>

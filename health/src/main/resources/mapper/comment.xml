@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTDMapper3.0//EN" 
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.service.CommentMapper">
+	
+	<!-- Comment 수 -->
+	<select id="commentCount" resultType="int">
+	
+		SELECT COUNT(*) FROM healthComment
+	
+	</select>
+
+	<!-- Comment List -->
+	<select id="commentList" parameterType="int" resultType="HealthComment">
+	
+		SELECT * FROM healthComment WHERE postNo = #{postNo} ORDER BY commentNo
+	
+	</select>
+
+
+	<!-- Comment 작성  -->
+	<insert id="commentInsert" parameterType="HealthComment">
+		
+		INSERT INTO healthComment(commentNo, postNo, content, writer, reg_date)
+		VALUES( commentseq.nextval, #{postNo} , #{content}, #{writer}, SYSDATE)
+	</insert>
+	
+	
+	<!-- Comment Update -->
+	<update id="commentUpdate" parameterType="HealthComment">
+	
+		UPDATE healthComment SET content = #{content} where commentNo = #{commentNo} 
+	
+	</update>
+	
+	
+	<!-- Comment Delete -->
+	<delete id="commentDelete" parameterType="int">
+		
+		DELETE FROM healthComment where commentNo = #{commentNO}
+	
+	</delete>
+	
+	
+	
+
+</mapper>

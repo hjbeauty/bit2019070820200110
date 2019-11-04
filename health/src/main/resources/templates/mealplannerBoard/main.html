@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
+<head>
+<link th:href="@{/css/mealboardmain.css}" rel="stylesheet" />
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link type="text/css" rel="stylesheet" th:href="@{/css/health.css}" />
+<meta charset="UTF-8">
+<title>main here</title>
+
+
+<style type="text/css">
+
+#header{
+
+	margin-bottom: 100px;
+
+}
+</style>
+
+
+
+</head>
+<body>
+<div id="header">
+ <th:block th:replace="fragments/header2"></th:block>
+</div>
+
+
+<div id="title">Your Meal-Planner!</div>
+<div id="subtitle"><span id="subspan">1st WEEK</span></div>
+
+	<div id="table">
+		<table id="MEALPLANNER_1" border="1">
+			<thead>
+				<tr>
+					<th>FoodTime</th>
+					<th>Sun</th>
+					<th>Mon</th>
+					<th>Tue</th>
+					<th>Wed</th>
+					<th>Thu</th>
+					<th>Fri</th>
+					<th>Sat</th>
+				</tr>
+				<form id="mealtable" name="mealtable" action="detail" th:object="${MealplanBoard}" method="get">
+					<th rowspan="2">Breakfast</th>
+					<th:block th:replace="meal/breakfast :: breakfast"></th:block>
+					<th rowspan="2">Lunch</th>
+					<th:block th:replace="meal/lunch :: lunch"></th:block>
+					<th rowspan="2">Dinner</th>
+					<th:block th:replace="meal/dinner :: dinner"></th:block>
+					<div id="btn">
+						<input type="submit" value="submit" class="foodselect_btn">
+    					<input type="reset" value="reset" class="foodselect_btn">
+					</div>	
+				</form>
+			</thead>
+		</table>
+	</div>
+
+</body>
+</html>

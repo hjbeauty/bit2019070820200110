@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>BMI Calculator</title>
+
+<link
+	href="https://fonts.googleapis.com/css?family=Merriweather&display=swap"
+	rel="stylesheet">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link type="text/css" rel="stylesheet" th:href="@{/css/health.css}" />
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/css?family=Amatic+SC">
+
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="./js/foodie.js"></script>
+
+
+
+<style type="text/css">
+
+#title{
+	margin-top: 100px;
+
+}
+
+#title_text{
+
+	text-align: center;
+	font-size: 25pt;
+}
+
+#bmi_intro{
+	width: 60%;
+	margin: 0 auto;
+	font-size: 1.2em;
+}
+
+
+#bmi, #numguess, #swipe, #dragdrop{
+	width: 60%;
+	margin: 0 auto;
+	font-size: 1.1em;
+}
+
+#shopping_cart{
+	margin: 0 auto;
+	width: 833px;
+	height: 170px;
+	border: 1px dotted red;
+}
+
+#bmi_result{
+	width: 100px;
+	height: 30px;
+	border: 1px solid black;
+}
+
+#bmi_category{
+	width: 99%;
+	height: 350px;
+	border: 1px solid black;
+	margin: 0 auto;
+	padding: 5px;
+}
+
+#bmi_category_info{
+	color: #2873B4;
+	font-weight: bold;
+}
+</style>
+
+
+</head>
+<body>
+
+<div id="header">
+ <th:block th:replace="fragments/header"></th:block>
+
+</div>
+
+
+<div id="main">
+	<div id="title">
+	<p id="title_text">BMI Calculator</p>
+	</div>
+	<p id="bmi_intro">
+			&nbsp;&nbsp;Calculate Your Body Mass Index Body mass index (BMI) is a
+			measure of body fat based on height and weight that applies to adult
+			men and women. <br> &nbsp;&nbsp;Enter your weight and height
+			using standard or metric measures. Select "Compute BMI" and your BMI
+			will appear below.
+		</p>
+			<div id="bmi">
+
+				<fieldset>
+					<legend style="text-decoration: none">Check Your BMI!</legend>
+					Your Height : 
+					<input type="text" name="height" id="height"> (cm) 
+					<span id="sheight" class="error"></span> <br> 
+					Your Weight : 
+					<input type="text" name="weight" id="weight"> (kg) 
+					<span id="sweight" class="error"></span> <br> <br> 
+					<input type="button" value="Compute BMI" id="bmi_btn"> &nbsp; 
+					<input type="reset" value="Recalculate BMI"> <br> <br>
+					Your BMI :
+					<div id="bmi_result"></div>
+					<br> 
+					Your BMI Category :
+					<div id="bmi_category"></div>
+				</fieldset>
+
+			</div>
+
+
+
+</div>
+
+<script type="text/javascript">
+
+$(function () {
+	$('input[name="height"]').blur(function () {
+		let height = $(this).val();
+		if(height <200 && height>50){
+			$("#sheight").text("키 입력 완료");
+		} else{
+			$("#sheight").text("정확한  키 수치를 숫자로 입력해주세요");
+		}
+	});
+	
+	$('input[name="weight"]').blur(function () {
+		let weight = $(this).val();
+		if(weight<150 && weight>1){
+			$("#sweight").text("몸무게 입력 완료");
+		} else{
+			$("#sweight").text("정확한 몸무게 수치를 숫자로 입력해주세요");
+		}
+	});
+	
+	$("#bmi_btn").click(function () {
+		let height = $("#height").val();
+		let weight = $("#weight").val();
+		let result = Math.round(weight / ((height*0.01)*(height*0.01))*10)/10.0;
+		
+		$("#bmi_result").html("<span class='bold'>"+result+"</span>");
+		
+		let category;
+		if(result<18.5){
+			category = "Underweight";
+		} else if (18.5<= result <=24.9){
+			category = "Normal";
+		} else if (25.0<= result <=29.9){
+			category = "Overweight";
+		} else if(result > 29.9) {
+			category = "Obese";
+		}
+		
+		let explanation = "For the information you entered: <br><br>Height: <span class='bold'>";
+		explanation += height;
+		explanation += "cm</span> <br>Weight: <span class='bold'>"
+		explanation += weight;
+		explanation += "kg</span> <br>Your BMI is <span class='bold'>";
+		explanation += result;
+		explanation += "</span>, indicating your weight is in the <span class='bold'>";
+		explanation += category;
+		explanation += "</span> category for the adults of your height. <br><br><hr>"
+		explanation += "<span class='bold'> [ BMI Categories ] <br><br>Underweight</span> = <18.5 <br><span class='bold'>Normal weight</span> = 18.5–24.9 <br><span class='bold'>Overweight</span> = 25–29.9 <br><span class='bold'>Obesity</span> = BMI of 30 or greater"
+		
+		$("#bmi_category").html(explanation);
+		
+	});
+	
+	
+});
+
+</script>
+
+</body>
+</html>

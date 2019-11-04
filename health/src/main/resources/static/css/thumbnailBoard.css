@@ -1,0 +1,38 @@
+@charset "UTF-8";
+
+#img{
+	width:220px;
+	height:170px;
+}
+
+#block{
+	margin: 0 auto;
+	width: 1100px;
+	height:580px;
+}
+#total{
+	position : relative;
+	text-align: center;
+}
+#inline{
+	width: 20%;
+	height : 30%;
+	margin-top : 5%;
+	margin-left : 5%;
+	margin-right : 5%;
+	display: inline-block;
+}
+#title{
+	text-align: center;
+}
+#write_btn{
+	position: relative;
+}
+#write_btn_div{
+	text-align: center;
+}
+#login_btn_div{
+	text-align: center;
+}
+
+

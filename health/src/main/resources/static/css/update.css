@@ -1,0 +1,12 @@
+@charset "UTF-8";
+
+#header_div{
+	text-align: center;
+}
+#form_div{
+	text-align: center;
+}
+#content{
+	width: 400px;
+	height: 250px;
+}

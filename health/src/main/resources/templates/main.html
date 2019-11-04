@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>main</title>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link type="text/css" rel="stylesheet" th:href="@{/css/health.css}" />
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+
+<style type="text/css">
+#sidebar {
+	position: absolute;
+	top: 80px;
+	right: 0px;
+
+
+}
+
+#title {
+	margin-top: 150px;
+	text-align: center;
+}
+
+#title_text {
+	font-size: 30pt;
+	font-style: italic;
+	font-weight: bold;
+	letter-spacing: 5px;
+	color: #f2d600;
+	margin-bottom: 20px;
+}
+
+#title_text:hover {
+	font-size: 30pt;
+	font-style: italic;
+	font-weight: bold;
+	letter-spacing: 5px;
+	color: #008080; 
+}
+
+#image {
+	width: 500px;
+	height: 500px;
+}
+</style>
+
+
+</head>
+<body>
+
+<div id="header">
+ <th:block th:replace="fragments/header"></th:block>
+</div>
+
+<div id="main">
+
+	
+	<div id="sidebar">
+	 <th:block th:replace="fragments/sideBar"></th:block>
+	</div>
+	
+	
+	<div id="title">
+		<p id="title_text">Healthy Eating and Workout Plans </p>
+	</div>
+	
+	<div id="main_image"> 
+	
+		<div id="main_image">
+			<!-- <img src="./static/vege.jpg" th:src="@{vege.jpg}" alt="메인 사진" id="image"/> -->
+		</div>
+		
+		<div id="main_gif" style="text-align: center;">
+		<img alt="main" id="maingif" src="./static/img/veges.gif" th:src="@{/img/veges.gif}" width="1600px" height="400px">
+		</div>
+	
+	
+	
+	</div>
+	
+</div>
+
+
+</body>
+</html>

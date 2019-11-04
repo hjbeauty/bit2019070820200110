@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.example.demo.service.MealplanBoardMapper">
+	<select id="MealplanBoardList"
+		resultType="com.example.demo.bean.MealplanBoard">
+		SELECT * FROM MEALPLANNER
+	</select>
+
+	<!-- <select id="selected2" parameterType="String" resultType="com.example.demo.bean.MealplanBoard"> 
+		SELECT * FROM MEALPLANNER WHERE foodname = #{foodselect1,jdbcType=VARCHAR} 
+		or foodname = #{foodselect2,jdbcType=VARCHAR} or foodname = #{foodselect3,jdbcType=VARCHAR} 
+		or foodname = #{foodselect4,jdbcType=VARCHAR} or foodname = #{foodselect5,jdbcType=VARCHAR} 
+		or foodname = #{foodselect6,jdbcType=VARCHAR} or foodname = #{foodselect7,jdbcType=VARCHAR} 
+		or foodname = #{foodselect8,jdbcType=VARCHAR} or foodname = #{foodselect9,jdbcType=VARCHAR} 
+		or foodname = #{foodselect10,jdbcType=VARCHAR} or foodname = #{foodselect11,jdbcType=VARCHAR} 
+		or foodname = #{foodselect12,jdbcType=VARCHAR} or foodname = #{foodselect13,jdbcType=VARCHAR} 
+		or foodname = #{foodselect14,jdbcType=VARCHAR} or foodname = #{foodselect15,jdbcType=VARCHAR} 
+		or foodname = #{foodselect16,jdbcType=VARCHAR} or foodname = #{foodselect17,jdbcType=VARCHAR} 
+		or foodname = #{foodselect18,jdbcType=VARCHAR} or foodname = #{foodselect19,jdbcType=VARCHAR} 
+		or foodname = #{foodselect20,jdbcType=VARCHAR} or foodname = #{foodselect21,jdbcType=VARCHAR} 
+		</select> -->
+		
+	<select id="selected" parameterType="list"
+		resultType="com.example.demo.bean.MealplanBoard">
+		SELECT * FROM MEALPLANNER
+		<where>
+			<foreach item="item" index="index" collection="list" >
+				OR foodname=#{item}
+			</foreach>
+		</where>
+	</select> 
+	
+</mapper>

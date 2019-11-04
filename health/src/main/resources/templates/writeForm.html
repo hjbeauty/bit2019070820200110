@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<title></title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<style>
+	#content{
+		height:600px;
+	}
+</style>
+</head>
+<body>
+<div class="container">
+	<form th:if="${type} == 'post'" action="writePost.do" method="post"
+		th:object="${board}" enctype="multipart/form-data">
+		<div class="form-group">
+			<label for="title">제목</label> 
+			<input type="text" id="title" class="form-control"
+				th:field="*{title}" th:value="*{title}">
+		</div>
+		<div class="form-group">
+			<label for="file">파일 업로드 </label> <input type="file" name="file">
+		</div>
+		<div class="form-group">
+			<input type="text" id="content" th:field="*{content}" class="form-control"
+				th:value="*{content}">
+		</div>
+
+			<input type="submit" class="btn_writer" value="확인"> 
+			<button type="button" class="btn_writer" onclick = "location.href='QnAboard'">취소</button>
+	</form>
+
+
+	<form th:if="${type} == 'reply'" action="writeReply.do" method="post"
+		th:object="${board}" enctype="multipart/form-data">
+		<div class="form-group">
+		<label for="title">제목</label> 
+		<input type="text" id="title" name="title" class="form-control">
+		</div>
+		<div class="form-group">
+		<label for="file">파일 업로드 </label> <input type="file" name="file">
+		</div>
+		<div class="form-group">
+		<input type="text" id="content" class="form-control" name="content" >
+		</div> 
+		<input type="submit" class="btn_writer" value="확인">
+		<input type="hidden"
+			th:field="*{groupNo}" th:value="*{groupNo}"> <input
+			type="hidden" th:field="*{groupOrder}" th:value="*{groupOrder}">
+		<input type="hidden" th:field="*{depth}" th:value="*{depth}">
+		<button type="button" class="btn_writer" onclick = "location.href='QnAboard'">취소</button>
+	</form>
+
+
+	<form th:if="${type} == 'modify'" action="modifyPost.do" method="post"
+		th:object="${board}" enctype="multipart/form-data">
+		<div class="form-group">
+		<label for="title">제목</label> <input type="text" id="title" class="form-control" th:field="*{title}">
+		</div>
+		<div class="form-group">
+		<input type="text" id="content" class="form-control" th:field="*{content}"
+			th:value="*{content}">
+		</div>	
+		<input type="submit" class="btn_writer" value="확인">
+	
+		<a class="btn_writer" href="QnAboard">취소</a> <input type="hidden"
+			th:field="*{postNo}" th:value="*{postNo}"> <input
+			type="hidden" th:field="*{groupNo}" th:value="*{groupNo}"> <input
+			type="hidden" th:field="*{groupOrder}" th:value="*{groupOrder}">
+		<input type="hidden" th:field="*{depth}" th:value="*{depth}">
+		<button type="button" class="btn_writer" onclick = "location.href='QnAboard'">취소</button>
+	</form>
+</div>	
+</body>
+</html>

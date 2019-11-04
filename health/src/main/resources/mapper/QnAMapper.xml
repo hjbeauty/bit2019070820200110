@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTDMapper3.0//EN" 
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <mapper namespace="com.example.demo.service.QnAMapper">
+  	
+  	<!-- 전체글 출력-->
+  	<select id="getQnAList" resultType="Board" >
+  		select * from qnaboard ORDER BY groupno desc, grouporder asc
+  	</select>
+  	
+  	<!-- 글번호에 해당하는 글 출력 -->
+  	<select id="getPost" resultType="Board" parameterType="int">
+  		select * from qnaboard where postNo=#{postNo}
+  	</select>
+  	
+  	<!-- 원글작성 -->
+ 	<insert id="writePost" parameterType="Board">
+  		INSERT INTO qnaBoard(postNo, groupNo, groupOrder, depth, title, content,writer,img) values 
+			((select nvl(max(postNo),0)+1 from qnaBoard), (select nvl(max(groupNo),0)+1 from qnaBoard), 0, 0, #{title},#{content},#{writer},#{img})
+  	</insert>
+  	
+  	 <!-- 이전 답글 순서 내리기 -->
+  	 <update id="moveReply" parameterType="Board">
+  	 	UPDATE qnaBoard set groupOrder = groupOrder+1 WHERE groupNo = #{groupNo} AND groupOrder > #{groupOrder} 
+  	 </update>
+
+  	<!-- 답글작성 -->
+  	<insert id="writeReply" parameterType="Board">
+  		INSERT INTO qnaBoard(postNo, groupNo, groupOrder, depth, title, content,writer,img)
+			VALUES ((select nvl(max(postNo),0)+1 from qnaBoard), #{groupNo}, #{groupOrder}+1, #{depth}+1, #{title}, #{content},#{writer},#{img})
+  	</insert>
+  	 
+  	<!-- 글수정 -->
+  	 <update id="modify" parameterType="Board">
+  		update qnaBoard set title= #{title},content=#{content} where postNo = #{postNo}
+  	 </update>
+  
+  	<!-- 삭제할 글에 답변이 있는가 -->
+  	<select id="hasReply" resultType="Board" parameterType="int">
+  		select * from qnaboard where groupNo = #{groupNo} and groupOrder = #{groupOrder}+1 and depth = #{depth}+1
+  	</select>
+
+ 	<update id="remainDelete" parameterType="int">
+  		update qnaBoard set writer=null, title='삭제된 글입니다', content=null, img=null where postNo = #{postNo}
+  	 </update>
+
+	<delete id="delete" parameterType="int">
+		delete from qnaboard where postNo = #{postNo} 
+	</delete>
+  </mapper> 

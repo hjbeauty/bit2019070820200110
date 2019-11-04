@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link type="text/css" rel="stylesheet" th:href="@{/css/health.css}" />
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+<style type="text/css">
+
+#header{
+
+	margin-bottom: 100px;
+}
+</style>
+
+</head>
+<body>
+	<div id="header">
+ 		<th:block th:replace="fragments/header"></th:block>
+	</div>
+
+    <div style="text-align: center;">text</div>
+	<table id="boardTable" border="1" width="700" height="300" align="center">
+		
+			<tr align="center">
+				<th>no</th>
+				<td th:text="${board.boardnum}">no</td>
+			</tr>
+			
+			<tr align="center">
+			   <th>writer</th>
+			   <td th:text="${board.writer}">writer</td>
+			</tr>
+		    
+		    <tr align="center">
+		       <th>title</th>
+		       <td th:text="${board.title}">title</td>
+		    </tr>
+		    
+		    <tr align="center">
+		       <th>text</th>
+		       <td th:text="${board.txt}">text</td>
+		    </tr>
+		    
+		    <tr align="center">
+		       <th>time</th>
+		       <td th:text="${board.boardtime}">time</td>
+		    </tr>
+		    
+		    <tr th:if="${login != null}">
+		       <td><a th:href="'freedelete?boardnum='+${board.boardnum}" th:text="삭제"></a></td>
+		       <td><a th:href="'freeupdate?boardnum='+${board.boardnum}" th:text="수정"></a></td>
+		    </tr>
+				
+
+		<a th:href="@{/freemain}">Home</a>
+	</table>
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th ="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<link type="text/css" rel="stylesheet" th:href="@{/css/health.css}" />
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" type="text/css" href="/css/thumbnailBoard.css">
+
+<title>Thumbnail Board</title>
+
+<style type="text/css">
+
+#header{
+	margin-bottom: 100px;
+
+}
+
+</style>
+
+
+</head>
+<body>
+<div id="header">
+ <th:block th:replace="fragments/header"></th:block>
+</div>
+
+<div id="title"><h2>운동 리스트</h2></div>
+<hr>
+<th:block th:if="${login}== null">
+	<div id="login_btn_div">
+		<a class="btn btn-success" role="button" th:href="@{login}">
+			관리자 로그인
+		</a>
+	</div>
+</th:block>
+<th:block th:if="${login} != null">
+		<div id="write_btn_div">
+		<a id="write_btn" class="btn btn-info" role="button" th:href = "@{goWriteBoard.do}">
+			글쓰기
+		</a>
+	</div>
+</th:block>
+<div id="total">
+	<div id="block">
+		<div id="inline" th:each="data, dataStat : ${boardList}">
+			<a href="postBoard.html" th:href="'/postBoard.do?articleNumber=' + ${data.articleNumber}">
+				<img id="img" class="img-thumbnail" th:src="@{'/img/' + ${data.imgsrc}}"/>
+			</a>
+			<br>
+			<div th:text="${data.title}"></div>
+		</div>
+
+	</div>
+</div>
+<!-- 페이징 처리  -->
+
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+</html>

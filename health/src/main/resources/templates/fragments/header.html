@@ -1,0 +1,29 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<meta charset="UTF-8">
+
+<div class="w3-top w3-hide-small">
+			<div
+				class="w3-bar w3-xlarge w3-black w3-opacity w3-hover-opacity-off"
+				id="myNavbar" >
+				<ul>
+				<li><a href="/main" >Home</a></li> 
+				<li><a href="/mealplannerBoard/MealBoard">Meal Planner</a></li>
+				<li><a href="boardList/1" > Health Board</a></li>
+				<li><a href="QnAboard">QnA Board </a></li>
+				<li><a href="/freemain">Free Board </a></li>
+				<li><a href="thumbnailBoard">Exercise Board </a></li>
+				<li><span th:if="${login != null}">
+						<a href="/logout.do" class="drop_btn">Log-out </a>
+						<span id="welcome">	 [[${login}]] 님 건강해질 준비 되셨나요? </span>
+					</span>
+					<span th:if="${login == null}">
+						<a href="/login" class="drop_btn">Log-In</a>
+					</span>
+				</li>
+				
+			
+</ul>
+</div>
+</div>
+
+</html>

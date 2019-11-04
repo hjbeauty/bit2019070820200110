@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
+<head>
+<link th:href="@{/css/mealboarddetail.css}" rel="stylesheet" />
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link type="text/css" rel="stylesheet" th:href="@{/css/health.css}" />
+<meta charset="UTF-8">
+<title>detail here</title>
+
+<style type="text/css">
+
+#header{
+
+	margin-bottom: 100px;
+
+}
+</style>
+
+
+</head>
+<body>
+
+<div id="header">
+ <th:block th:replace="fragments/header2"></th:block>
+</div>
+
+
+<div id="title">Your Meal-Planner!</div>
+<div id="subtitle"><span>1st WEEK</span></div>
+<div id="btn">
+      <span id="submitbtn"><button><a href="/mealplannerBoard/final" style="text-decoration: none; color: black;">List</a></button></span>
+<div id="numsize" style="margin-left: 250px; font-weight: bold;">총 [[${num}]] 개</div>
+	  
+</div>	  
+<div id="mealplannertable">
+     <table id="MEALPLANNER" border="1">
+     <thead>
+    <tr>
+         <th>DAY</th>
+         <th>FoodNo</th>
+         <th>Food-Name</th>
+         <th>IMG</th>
+         <th>Nutrition</th>
+     </tr>
+     </thead>
+     
+     <tbody>
+     <tr th:each ="mealplanner : ${list}">
+  
+         <td th:text="${mealplanner.day}">DAY</td>
+         <td th:text="${mealplanner.foodid}">FoodNo</td>
+         <td th:text="${mealplanner.foodname}">Food-Name</td>
+         <td><div style="text-align: center;">
+         <img th:src="@{${mealplanner.image_menu}}" width="150px" height="150px" />
+         </div></td>
+         <td th:text="${mealplanner.image}"></td>
+     </tr>
+     </tbody>
+     
+     </table>
+</div>
+
+</body>
+</html>

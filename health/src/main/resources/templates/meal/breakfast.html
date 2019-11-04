@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
+<head>
+<meta charset="UTF-8">
+<title>breakfast</title>
+</head>
+<body th:fragment="breakfast">
+				
+				
+				<tr>
+				<div id="selection" th:field="${foodname}">
+					<td><select name="foodselect" id="foodselect1">
+							<option value="default">음식선택</option>
+							<option th:value="돼지고기쌈장볶음밥">돼지고기쌈장볶음밥</option>
+							<option th:value="타코샐러드">타코샐러드</option>
+						</select></td>
+					<td><select name="foodselect" id="foodselect2">
+							<option value="default">음식선택</option>
+							<option th:value="새우아보카도계란랩">새우아보카도계란랩</option>
+							<option th:value="멕시칸치킨수프">멕시칸치킨수프</option>
+						</select></td>
+					<td><select name="foodselect" id="foodselect3">
+							<option value="default">음식선택</option>
+							<option th:value="유자소고기곤약국수">유자소고기곤약국수</option>
+							<option th:value="아보카도샐러드">아보카도샐러드</option>
+						</select></td>
+					<td><select name="foodselect" id="foodselect4">
+							<option value="default">음식선택</option>
+							<option th:value="김치참치필라프">김치참치필라프</option>
+							<option th:value="해물커리리조또">해물커리리조또</option>
+						</select>
+						</td>
+					<td><select name="foodselect" id="foodselect5">
+							<option value="default">음식선택</option>
+							<option th:value="풋호박맑은아귀탕">풋호박맑은아귀탕</option>
+							<option th:value="니수아즈샐러드">니수아즈샐러드</option>
+						</select>
+						</td>
+					<td><select name="foodselect" id="foodselect6">
+							<option value="default">음식선택</option>
+							<option th:value="매콤쭈꾸미덮밥">매콤쭈꾸미덮밥</option>
+							<option th:value="아보카도불고기샐러드">아보카도불고기샐러드</option>
+						</select>
+						</td>
+					<td><select name="foodselect" id="foodselect7" >
+							<option value="default">음식선택</option>
+							<option th:value="해물잡채밥">해물잡채밥</option>
+							<option th:value="베이컨크림리조또">베이컨크림리조또</option>
+						</select>
+						</td>
+		</div>
+	</tr>
+</body>
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link type="text/css" rel="stylesheet" th:href="@{/css/health.css}" />
+  
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+
+<style>
+	#write{
+		float:right;
+	}
+	
+	
+	#main{
+		margin-top: 200px;
+	}
+</style>
+
+<script th:inline="javascript" >
+/* <![CDATA[ */
+	
+	$(function() {
+		$('.list').click(function() {
+			let postNo = $(this).find('#postNo').text();
+			location.href='post.do?postNo='+postNo;
+		})
+		
+	})
+/* ]]> */
+</script>
+</head>
+<body>
+
+<div id="header">
+ <th:block th:replace="fragments/header"></th:block>
+</div>
+
+<div id="main">
+	<div class="container">
+	<table class="table">
+		<thead>
+			<th>글번호</th>
+			<th>제목</th>
+			<th>이미지</th>
+			<th>글쓴이</th>
+		</thead>
+		<tbody th:each="data:${boardList}">
+			<tr th:if="${data.writer != null}" class="list">
+			
+				<td id="postNo" th:text="${data.postNo}"></td>
+				<td th:with="depth=${data.depth},content=${data.content}" >
+					<th:block th:each="num: ${#numbers.sequence(0,depth)}">&nbsp &nbsp</th:block> 
+					<th:block th:if="${content==null}" th:text="${data.title}"></th:block>
+					<th:block th:unless="${content == null}">
+						<th:block th:if="${depth>0}" th:text="|답변:${data.title}|"></th:block>
+						<th:block th:unless="${depth>0}" th:text="${data.title}"></th:block>
+					</th:block>
+				</td>
+				<td th:with="img=${data.img}">
+					<th:block th:if="${img==null}">X</th:block>
+					<th:block th:unless="${img==null}">O</th:block>
+				</td>
+				<td th:text="${data.writer}"></td>
+			</tr>
+			
+			
+			<tr th:unless="${data.writer != null}">	
+				<td id="postNo" th:text="${data.postNo}"></td>
+				<td th:with="depth=${data.depth},content=${data.content}" >
+					<th:block th:each="num: ${#numbers.sequence(0,depth)}">&nbsp &nbsp</th:block> 
+					<th:block th:if="${content==null}" th:text="${data.title}"></th:block>
+					<th:block th:unless="${content == null}">
+						<th:block th:if="${depth>0}" th:text="|답변:${data.title}|"></th:block>
+						<th:block th:unless="${depth>0}" th:text="${data.title}"></th:block>
+					</th:block>
+				</td>
+				<td th:with="img=${data.img}">
+					<th:block th:if="${img==null}">X</th:block>
+					<th:block th:unless="${img==null}">O</th:block>
+				</td>
+				<td th:text="${data.writer}"></td>
+			</tr>
+		</tbody>
+	</table>
+	<hr>
+	<th:block th:if="${login !=null}">
+	<button id="write" onclick = "location.href='writeForm.do?type=post'">글쓰기</button>
+	</th:block>
+</div>
+</div>
+</body>
+</html>

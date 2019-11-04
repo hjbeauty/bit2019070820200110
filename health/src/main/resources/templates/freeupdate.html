@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+     <form role="form" th:object="${board}" th:action="@{/freeupdatecontent}" action="#" method="post">
+       
+       <table id="boardTable" border="1" width="700" height="300" align="center">
+       
+       <tr align="center">
+				<th>no</th>
+				<td th:text="${boardup.boardnum}">no</td>
+	   </tr>
+	   
+	  
+	   
+	   <tr align="center">
+		       <th>title</th>
+		       <td><input type="text" name="title" id="title"
+		            autofocus="autofocus" required="required"></td>
+	   </tr>
+	   
+	    <tr align="center">
+		       <th>text</th>
+		       <td><input type="text" name="txt" id="txt"
+		            autofocus="autofocus" required="required"></td>
+		</tr>
+		
+		 <tr align="center">
+		       <th>time</th>
+		       <td th:text="${boardup.boardtime}">time</td>
+		 </tr>
+       
+	     <tr align="right">
+           <td><input type="hidden" name="boardnum" id="boardnum" th:value="${boardup.boardnum}"></td>
+           <td colspan="10"><input type="submit" th:value="수정"></td>
+	    </tr>
+	    
+	       <a th:href="@{/freemain}">Home</a>
+       </table>
+       </form>
+</body>
+</html>
