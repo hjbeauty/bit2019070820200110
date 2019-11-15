@@ -1,0 +1,47 @@
+1.파일위치 예시
+templates/main
+templates/login
+templates/product
+templates/user/mypage/shopping
+templates/user/mypage/activity
+templates/user/pay
+templates/admin/users
+templates/admin/orders
+등등
+
+2.파일명명 규칙
+소문자 시작, 낙타 .html
+
+3.페이지 번호 규칙
+메인 페이지 Ma_00_00
+로그인 Log_00_00
+상품 리스트 페이지 Pl_00_00
+상품 상세 페이지 Pd_00_00
+
+(USER)
+장바구니 Ct_00_00
+결제 Pay_00_00
+쇼핑 정보-주문 내역 및 환불/반품, 배송 픽업, 회원 등급 현황, 리뷰 작성, 환불 신청 Sh_00_00
+활동 정보-적립금, 쿠폰, 나의 리뷰, 나의 Q&A Act_00_00
+나의 정보-배송지 관리, 회원 정보 수정, 회원 탈퇴 My_00_00
+
+(ADMIN)
+회원관리-회원 정보 리스트 Au_00_00
+주문관리-주문 내역, 환불 내역 Ao_00_00
+상품 관리-상품 등록, 상품 Q&A관리 Ap_00_00
+통계-매출 통계, 회원 통계 Aa_00_00
+
+4. 페이지 가이드라인
+좌측 상단부터 차례대로, 대상의 좌측 상단에 번호 붙이기
+기능번호 - 파랑원형 ABC
+설명번호 - 빨강원형 123
+
+5. UI 수정 규칙
+공통 이미지-페이징처리:메인이랑 스크롤페이징 외에는 숫자, 버튼:짙은회색, user/admin이미지:헤어없는 ver 원형, 그 외에는 오븐 아이콘으로 알아서 적용.
+스크롤바 없음
+팝업창 배경 흰색, 뒤에 검은색 반투명까는거 rgb(158,158,158) 투명도50%
+groupping 점선 dashed 두께2
+logo 가로 228 세로 79 와이어프레임
+
+
+
