@@ -1,0 +1,14 @@
+    
+CREATE TABLE leafboard(
+   no number(20) CONSTRAINT pk_no PRIMARY KEY, 
+   name VARCHAR2(20) NOT NULL,
+   title VARCHAR2(100) NOT NULL, 
+   contents VARCHAR2(2000) , 
+   uphit NUMBER(10) DEFAULT 0, 
+   wdate DATE DEFAULT sysdate, 
+   bfile VARCHAR2(100), 
+   bparent NUMBER(20),
+   groupNo NUMBER(10), 
+   depth NUMBER(10), 
+   groupOrder NUMBER(10)
+);
